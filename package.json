@@ -17,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/gitsolo/Types/issues"
   },
-  "homepage": "https://github.com/gitsolo/Types#readme"
+  "homepage": "https://github.com/gitsolo/Types#readme",
+  "files": [
+    "dist/**/*"
+  ],
+  "devDependencies": {
+    "typescript": "^3.8.2"
+  }
 }
