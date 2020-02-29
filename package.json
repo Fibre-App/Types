@@ -1,12 +1,13 @@
 {
   "name": "@gitsolo/types",
-  "version": "0.0.3",
+  "version": "0.0.8",
   "description": "Types",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "trash dist&&tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "npm run build&&npm publish --scope=@gitsolo --access public"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "dist/**/*"
   ],
   "devDependencies": {
+    "trash-cli": "^3.0.0",
     "typescript": "^3.8.2"
   }
 }

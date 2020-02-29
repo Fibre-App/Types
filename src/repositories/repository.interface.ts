@@ -3,6 +3,7 @@ import { IChangeSet } from "./changeset.interface";
 import { IBranch } from "./branch.interface";
 import { IStash } from "./stash.interface";
 import { ITag } from "./tag.interface";
+import { IRemote } from "./remote.interface";
 
 export interface IRepository {
 	type: RepositoryType;
@@ -10,14 +11,17 @@ export interface IRepository {
 	name: string;
 
 	changesets: IChangeSet[];
-	branches: IBranch[];
+	localbranches: IBranch[];
+	remotes: IRemote[];
 	tags: ITag[];
 	stashes: IStash[];
 
-	Update(): Promise<void>;
-	Pull(): Promise<void>;
-	Push(): Promise<void>;
-	Commit(message: string): Promise<void>;
-	SwitchBranch(name: string): Promise<void>;
-	CreateBranch(name: string): Promise<void>;
+	load(): Promise<void>;
+
+	update(): Promise<void>;
+	pull(): Promise<void>;
+	push(): Promise<void>;
+	commit(message: string): Promise<void>;
+	switchBranch(name: string): Promise<void>;
+	createBranch(name: string): Promise<void>;
 }

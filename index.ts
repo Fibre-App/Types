@@ -3,6 +3,7 @@ export { IBranch } from "./src/repositories/branch.interface";
 export { IChangeSet } from "./src/repositories/changeset.interface";
 export { IDiff } from "./src/repositories/diff.interface";
 export { IFile } from "./src/repositories/file.interface";
+export { IRemote } from "./src/repositories/remote.interface";
 export { IRepository } from "./src/repositories/repository.interface";
 export { IStash } from "./src/repositories/stash.interface";
 export { ITag } from "./src/repositories/tag.interface";
