@@ -1,6 +1,7 @@
 import { IDiff } from "./diff.interface";
 
 export interface IFile {
-	filename: string;
+	beforeName: string;
+	afterName: string;
 	diffs: IDiff[];
 }

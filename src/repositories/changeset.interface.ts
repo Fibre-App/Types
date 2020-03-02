@@ -8,4 +8,6 @@ export interface IChangeSet {
 	author: string;
 	timestamp: string;
 	files: IFile[];
+
+	load(): Promise<void>;
 }

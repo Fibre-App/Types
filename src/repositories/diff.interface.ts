@@ -1,3 +1,7 @@
 export interface IDiff {
-	lines: string[];
+	startingLineNumber: number;
+	title: string;
+	before: string[];
+	after: string[];
+	totalLines: number;
 }
