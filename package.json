@@ -1,24 +1,25 @@
 {
-  "name": "@gitsolo/types",
-  "version": "0.0.14",
+  "name": "@fibre/types",
+  "version": "0.0.0",
   "description": "Types",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "trash dist&&tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "npm run build&&npm publish --scope=@gitsolo --access public"
+    "prepublish": "npm run build",
+    "release": "npm publish --scope=@fibre --access public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gitsolo/Types.git"
+    "url": "git+https://github.com/fibre/Types.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gitsolo/Types/issues"
+    "url": "https://github.com/fibre/Types/issues"
   },
-  "homepage": "https://github.com/gitsolo/Types#readme",
+  "homepage": "https://github.com/fibre/Types#readme",
   "files": [
     "dist/**/*"
   ],
