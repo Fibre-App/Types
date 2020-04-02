@@ -17,3 +17,4 @@ export { IScript } from "./src/script.interface";
 export { Inject } from "./src/injection/inject.decorator"
 export { Injectable as A } from "./src/injection/injectables.enum"
 export { ILogger } from "./src/injection/utils/logger.interface"
+export { IToasterService } from "./src/injection/utils/toaster-service.interface"
