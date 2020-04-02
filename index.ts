@@ -10,9 +10,10 @@ export { ITag } from "./src/repositories/tag.interface";
 
 export { RepositoryType } from "./src/repositories/type.enum";
 
-export { IFileUtil } from "./src/utils/file-util.interface"
-export { ILogger } from "./src/utils/logger.interface"
-
 export { IResult } from "./src/result.interface";
 export { Script } from "./src/script.decorator";
 export { IScript } from "./src/script.interface";
+
+export { Inject } from "./src/injection/inject.decorator"
+export { Injectable as A } from "./src/injection/injectables.enum"
+export { ILogger } from "./src/injection/utils/logger.interface"
