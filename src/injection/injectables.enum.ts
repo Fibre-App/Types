@@ -1,4 +1,5 @@
 export enum Injectable {
   Logger,
-  ToasterService
+  ToasterService,
+  DialogService
 }
