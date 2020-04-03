@@ -1,4 +1,4 @@
-export interface IFileUtil {
+export interface IFileService {
 	doesFileExist(location: string): Promise<boolean>;
 	doesFolderExist(location: string): Promise<boolean>;
 
@@ -15,6 +15,6 @@ export interface IFileUtil {
 }
 
 export enum WriteType {
-	append = "append",
-	overwrite = "overwrite"
+	append,
+	overwrite
 }
