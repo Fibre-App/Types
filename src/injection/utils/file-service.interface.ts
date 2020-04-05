@@ -6,7 +6,7 @@ export interface IFileService {
 	getFoldersInFolder(location: string): Promise<string[]>;
 
 	createFolder(location: string): Promise<void>;
-	
+
 	readFile(location: string): Promise<string>;
 	writeFile(location: string, content: string, writeType: WriteType): Promise<void>;
 
