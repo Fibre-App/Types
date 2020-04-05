@@ -21,6 +21,7 @@ describe("In the Inject decorator", () => {
 			"anotherName",
 		].forEach(scriptName => it(`should set the scriptName "${scriptName}" on the prototype of the constructorFunction`, () => {
 			const constructorFunction: Function = () => undefined;
+			constructorFunction.prototype = {};
 
 			const subject: ClassDecorator = get_subject_with(scriptName);
 
