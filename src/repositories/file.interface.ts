@@ -4,5 +4,5 @@ export interface IFile {
 	beforeName: string;
 	afterName: string;
 	diffs: IDiff[];
-	binary: boolean
+	binary: boolean;
 }
