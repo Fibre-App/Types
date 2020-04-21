@@ -16,7 +16,7 @@
     "url": "git+https://github.com/fibre/Types.git"
   },
   "author": "",
-  "license": "GNU GPLV3+",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/fibre/Types/issues"
   },
