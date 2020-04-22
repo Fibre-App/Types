@@ -1,0 +1,8 @@
+{
+  "inputFiles": [
+		"./src"
+	],
+	"mode": "file",
+	"out": "docs",
+	"theme": "node_modules/@fibre/typedoc-themes/bin/minimal"
+}
