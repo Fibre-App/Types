@@ -1,6 +1,6 @@
 {
   "name": "@fibre/types",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Types",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
     "build": "trash dist&&tsc",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "coverage": "nyc --reporter=html --reporter=cobertura mocha -r ts-node/register 'tests/**/*.spec.ts'",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build&&npm run docs",
     "release": "npm publish --scope=@fibre --access public",
     "docs": "typedoc --options typedoc.json"
   },
