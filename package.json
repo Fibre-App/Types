@@ -8,7 +8,7 @@
     "build": "trash dist&&tsc",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
     "coverage": "nyc --reporter=html --reporter=cobertura mocha -r ts-node/register 'tests/**/*.spec.ts'",
-    "prepublishOnly": "npm run build&&npm run docs",
+    "prepublishOnly": "npm run build",
     "release": "npm publish --scope=@fibre --access public",
     "docs": "typedoc --options typedoc.json"
   },
