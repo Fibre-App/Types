@@ -8,7 +8,11 @@ describe("In the Inject decorator", () => {
 	describe("it", () => {
 
 		it("should return a function with the correct declaration", () => {
-			const result: ClassDecorator = Script("anything");
+			const result: ClassDecorator = Script({
+				ionIcon: "anything",
+				label: "anything",
+				tooltip: "anything"
+			});
 
 			assert.isFunction<ClassDecorator>(result);
 		});
@@ -17,21 +21,53 @@ describe("In the Inject decorator", () => {
 	describe("the returned function", () => {
 
 		[
-			"scriptName",
-			"anotherName",
-		].forEach(scriptName => it(`should set the scriptName "${scriptName}" on the prototype of the constructorFunction`, () => {
+			"scriptLabel",
+			"anotherLabel",
+		].forEach(scriptLabel => it(`should set the scriptLabel "${scriptLabel}" on the prototype of the constructorFunction`, () => {
 			const constructorFunction: Function = () => undefined;
 			constructorFunction.prototype = {};
 
-			const subject: ClassDecorator = get_subject_with(scriptName);
+			const subject: ClassDecorator = get_subject_with(scriptLabel, "anything", "anything");
 
 			subject(constructorFunction);
 
-			assert.deepStrictEqual(constructorFunction.prototype.scriptName, scriptName);
+			assert.deepStrictEqual(constructorFunction.prototype.scriptData.label, scriptLabel);
 		}));
 
-		function get_subject_with(scriptName: string): ClassDecorator {
-			return Script(scriptName);
+		[
+			"scriptTooltip",
+			"anotherTooltip",
+		].forEach(scriptTooltip => it(`should set the scriptTooltip "${scriptTooltip}" on the prototype of the constructorFunction`, () => {
+			const constructorFunction: Function = () => undefined;
+			constructorFunction.prototype = {};
+
+			const subject: ClassDecorator = get_subject_with("anything", scriptTooltip, "anything");
+
+			subject(constructorFunction);
+
+			assert.deepStrictEqual(constructorFunction.prototype.scriptData.tooltip, scriptTooltip);
+		}));
+
+		[
+			"scriptIonIcon",
+			"anotherIonIcon",
+		].forEach(scriptIonIcon => it(`should set the scriptIonIcon "${scriptIonIcon}" on the prototype of the constructorFunction`, () => {
+			const constructorFunction: Function = () => undefined;
+			constructorFunction.prototype = {};
+
+			const subject: ClassDecorator = get_subject_with("anything", "anything", scriptIonIcon);
+
+			subject(constructorFunction);
+
+			assert.deepStrictEqual(constructorFunction.prototype.scriptData.ionIcon, scriptIonIcon);
+		}));
+
+		function get_subject_with(label: string, tooltip: string, ionIcon: string): ClassDecorator {
+			return Script({
+				label,
+				tooltip,
+				ionIcon
+			});
 		}
 	});
 });

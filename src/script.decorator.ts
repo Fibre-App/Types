@@ -1,13 +1,15 @@
 // tslint:disable: ban-types
 // tslint:disable: only-arrow-functions
 
+import { IScriptData } from "./script-data.interface";
+
 /**
  * This decorator is what Fibre uses to locate scripts within a project.
- * @param scriptName The name of the script. This is what will display in the Fibre user-interface.
- * This value must be uinque within the file.
+ * @param scriptData The metadata for the script. This is what will display in the Fibre user-interface.
+ * This value must be unique within the file.
  */
-export function Script(scriptName: string): ClassDecorator {
+export function Script(scriptData: IScriptData): ClassDecorator {
 	return function (constructorFunction: Function): void {
-		constructorFunction.prototype.scriptName = scriptName;
+		constructorFunction.prototype.scriptData = scriptData;
 	};
 }
