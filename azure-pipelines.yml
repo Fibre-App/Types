@@ -24,9 +24,19 @@ steps:
 - script: |
     npm run coverage
   displayName: 'npm coverage'
+
+- script: |
+    npm run docs
+  displayName: 'npm generate docs'
   
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml'
     reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)/docs'
+    artifact: 'docs'
+    publishLocation: 'pipeline'
