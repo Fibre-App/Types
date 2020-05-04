@@ -20,7 +20,7 @@ steps:
   inputs:
     script: |
       npm install
-      npm build
+      npm run build
     failOnStderr: true
   displayName: 'npm install and build'
 
