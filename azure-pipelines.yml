@@ -43,9 +43,11 @@ steps:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml'
     reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+  displayName: 'publish code coverage artifact'
 
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(System.DefaultWorkingDirectory)/docs'
     artifact: 'docs'
     publishLocation: 'pipeline'
+  displayName: 'publish docs artifact'
