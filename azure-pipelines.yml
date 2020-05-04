@@ -16,17 +16,26 @@ steps:
     version: "13.2.0"
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
+- task: CmdLine@2
+  inputs:
+    script: |
+      npm install
+      npm build
+    failOnStderr: true
   displayName: 'npm install and build'
 
-- script: |
-    npm run coverage
+- task: CmdLine@2
+  inputs:
+    script: |
+      npm run coverage
+    failOnStderr: true
   displayName: 'npm coverage'
 
-- script: |
-    npm run docs
+- task: CmdLine@2
+  inputs:
+    script: |
+      npm run docs
+    failOnStderr: true
   displayName: 'npm generate docs'
   
 - task: PublishCodeCoverageResults@1
