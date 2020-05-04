@@ -21,21 +21,18 @@ steps:
     script: |
       npm install
       npm run build
-    failOnStderr: true
   displayName: 'npm install and build'
 
 - task: CmdLine@2
   inputs:
     script: |
       npm run coverage
-    failOnStderr: true
   displayName: 'npm coverage'
 
 - task: CmdLine@2
   inputs:
     script: |
       npm run docs
-    failOnStderr: true
   displayName: 'npm generate docs'
   
 - task: PublishCodeCoverageResults@1
