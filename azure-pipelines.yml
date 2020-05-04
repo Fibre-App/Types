@@ -37,6 +37,6 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Pipeline.Workspace)/docs'
+    targetPath: '$(System.DefaultWorkingDirectory)/docs'
     artifact: 'docs'
     publishLocation: 'pipeline'
