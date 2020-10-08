@@ -6,5 +6,5 @@ import { IRepository } from "./repositories/repository.interface";
  * implement the run function correctly. This is recommended.
  */
 export interface IScript {
-	run(repositories: IRepository[]): Promise<IResult>;
+  run(repositories: IRepository[]): Promise<IResult>;
 }

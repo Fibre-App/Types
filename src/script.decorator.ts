@@ -9,7 +9,7 @@ import { IScriptData } from "./script-data.interface";
  * This value must be unique within the file.
  */
 export function Script(scriptData: IScriptData): ClassDecorator {
-	return function (constructorFunction: Function): void {
-		constructorFunction.prototype.scriptData = scriptData;
-	};
+  return function (constructorFunction: Function): void {
+    constructorFunction.prototype.scriptData = scriptData;
+  };
 }

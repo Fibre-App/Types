@@ -2,7 +2,6 @@
  * A service for showing dialog boxes to the user within the Fibre user-interface.
  */
 export interface IDialogService {
-
   /**
    * Shows a dialog to the user which promps them for a single line of text.
    * @param title The title of the dialog box.

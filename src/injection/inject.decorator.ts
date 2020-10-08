@@ -8,7 +8,7 @@ import { Injectable } from "./injectables.enum";
  * @param dependencyType The type of dependency to be injected.
  */
 export function Inject(dependencyType: Injectable): ParameterDecorator {
-  return function(_target: Object, propertyName: string | symbol, index: number): void {
+  return function (_target: Object, propertyName: string | symbol, index: number): void {
     const target: ITarget = _target as ITarget;
 
     if (!target.dependencies) {

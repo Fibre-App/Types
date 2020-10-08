@@ -4,70 +4,64 @@ import { assert } from "chai";
 import { Script } from "../src/script.decorator";
 
 describe("In the Inject decorator", () => {
+  describe("it", () => {
+    it("should return a function with the correct declaration", () => {
+      const result: ClassDecorator = Script({
+        ionIcon: "anything",
+        label: "anything",
+        tooltip: "anything"
+      });
 
-	describe("it", () => {
+      assert.isFunction<ClassDecorator>(result);
+    });
+  });
 
-		it("should return a function with the correct declaration", () => {
-			const result: ClassDecorator = Script({
-				ionIcon: "anything",
-				label: "anything",
-				tooltip: "anything"
-			});
+  describe("the returned function", () => {
+    ["scriptLabel", "anotherLabel"].forEach(scriptLabel =>
+      it(`should set the scriptLabel "${scriptLabel}" on the prototype of the constructorFunction`, () => {
+        const constructorFunction: Function = () => undefined;
+        constructorFunction.prototype = {};
 
-			assert.isFunction<ClassDecorator>(result);
-		});
-	});
+        const subject: ClassDecorator = get_subject_with(scriptLabel, "anything", "anything");
 
-	describe("the returned function", () => {
+        subject(constructorFunction);
 
-		[
-			"scriptLabel",
-			"anotherLabel",
-		].forEach(scriptLabel => it(`should set the scriptLabel "${scriptLabel}" on the prototype of the constructorFunction`, () => {
-			const constructorFunction: Function = () => undefined;
-			constructorFunction.prototype = {};
+        assert.deepStrictEqual(constructorFunction.prototype.scriptData.label, scriptLabel);
+      })
+    );
 
-			const subject: ClassDecorator = get_subject_with(scriptLabel, "anything", "anything");
+    ["scriptTooltip", "anotherTooltip"].forEach(scriptTooltip =>
+      it(`should set the scriptTooltip "${scriptTooltip}" on the prototype of the constructorFunction`, () => {
+        const constructorFunction: Function = () => undefined;
+        constructorFunction.prototype = {};
 
-			subject(constructorFunction);
+        const subject: ClassDecorator = get_subject_with("anything", scriptTooltip, "anything");
 
-			assert.deepStrictEqual(constructorFunction.prototype.scriptData.label, scriptLabel);
-		}));
+        subject(constructorFunction);
 
-		[
-			"scriptTooltip",
-			"anotherTooltip",
-		].forEach(scriptTooltip => it(`should set the scriptTooltip "${scriptTooltip}" on the prototype of the constructorFunction`, () => {
-			const constructorFunction: Function = () => undefined;
-			constructorFunction.prototype = {};
+        assert.deepStrictEqual(constructorFunction.prototype.scriptData.tooltip, scriptTooltip);
+      })
+    );
 
-			const subject: ClassDecorator = get_subject_with("anything", scriptTooltip, "anything");
+    ["scriptIonIcon", "anotherIonIcon"].forEach(scriptIonIcon =>
+      it(`should set the scriptIonIcon "${scriptIonIcon}" on the prototype of the constructorFunction`, () => {
+        const constructorFunction: Function = () => undefined;
+        constructorFunction.prototype = {};
 
-			subject(constructorFunction);
+        const subject: ClassDecorator = get_subject_with("anything", "anything", scriptIonIcon);
 
-			assert.deepStrictEqual(constructorFunction.prototype.scriptData.tooltip, scriptTooltip);
-		}));
+        subject(constructorFunction);
 
-		[
-			"scriptIonIcon",
-			"anotherIonIcon",
-		].forEach(scriptIonIcon => it(`should set the scriptIonIcon "${scriptIonIcon}" on the prototype of the constructorFunction`, () => {
-			const constructorFunction: Function = () => undefined;
-			constructorFunction.prototype = {};
+        assert.deepStrictEqual(constructorFunction.prototype.scriptData.ionIcon, scriptIonIcon);
+      })
+    );
 
-			const subject: ClassDecorator = get_subject_with("anything", "anything", scriptIonIcon);
-
-			subject(constructorFunction);
-
-			assert.deepStrictEqual(constructorFunction.prototype.scriptData.ionIcon, scriptIonIcon);
-		}));
-
-		function get_subject_with(label: string, tooltip: string, ionIcon: string): ClassDecorator {
-			return Script({
-				label,
-				tooltip,
-				ionIcon
-			});
-		}
-	});
+    function get_subject_with(label: string, tooltip: string, ionIcon: string): ClassDecorator {
+      return Script({
+        label,
+        tooltip,
+        ionIcon
+      });
+    }
+  });
 });

@@ -2,7 +2,6 @@
  * The metadata inputted into the @Script decorator.
  */
 export interface IScriptData {
-
   /**
    * The text displayed in the Fibre user-interface on the script buttons.
    * This needs to be unique within the file.

@@ -3,88 +3,80 @@ import { Injectable } from "../../src/injection/injectables.enum";
 import { assert } from "chai";
 
 describe("In the Inject decorator", () => {
+  describe("it", () => {
+    it("should return a function with the correct declaration", () => {
+      const result: ParameterDecorator = Inject({} as Injectable);
 
-	describe("it", () => {
+      assert.isFunction<ParameterDecorator>(result);
+    });
+  });
 
-		it("should return a function with the correct declaration", () => {
-			const result: ParameterDecorator = Inject({} as Injectable);
+  describe("the returned function", () => {
+    it("should create a dependency array on the target if it is undefined", () => {
+      const injectable: Injectable = Injectable.FileService;
+      const target: ITarget = {} as ITarget;
 
-			assert.isFunction<ParameterDecorator>(result);
-		});
-	});
+      const subject: ParameterDecorator = get_subject_with(injectable);
 
-	describe("the returned function", () => {
+      subject(target, "anything", 0);
 
-		it("should create a dependency array on the target if it is undefined", () => {
-			const injectable: Injectable = Injectable.FileService;
-			const target: ITarget = {} as ITarget;
+      assert.isArray(target.dependencies);
+    });
 
-			const subject: ParameterDecorator = get_subject_with(injectable);
+    it("should not overwrite the target dependency array if it is defined", () => {
+      const injectable: Injectable = Injectable.FileService;
+      const dependency: IDependency = {} as IDependency;
+      const target: ITarget = {
+        dependencies: [dependency]
+      };
 
-			subject(target, "anything", 0);
+      const subject: ParameterDecorator = get_subject_with(injectable);
 
-			assert.isArray(target.dependencies);
-		});
+      subject(target, "anything", 0);
 
-		it("should not overwrite the target dependency array if it is defined", () => {
-			const injectable: Injectable = Injectable.FileService;
-			const dependency: IDependency = {} as IDependency;
-			const target: ITarget = {
-				dependencies: [ dependency ]
-			};
+      assert.includeDeepMembers(target.dependencies, [dependency]);
+    });
 
-			const subject: ParameterDecorator = get_subject_with(injectable);
+    it("should push a dependency to the target", () => {
+      const injectable: Injectable = Injectable.FileService;
+      const target: ITarget = {} as ITarget;
 
-			subject(target, "anything", 0);
+      const subject: ParameterDecorator = get_subject_with(injectable);
 
-			assert.includeDeepMembers(target.dependencies, [ dependency ]);
-		});
+      subject(target, "anything", 0);
 
-		it("should push a dependency to the target", () => {
-			const injectable: Injectable = Injectable.FileService;
-			const target: ITarget = {} as ITarget;
+      assert.equal(target.dependencies.length, 1);
+    });
 
-			const subject: ParameterDecorator = get_subject_with(injectable);
+    [Injectable.DialogService, Injectable.FileService, Injectable.Logger, Injectable.ToasterService].forEach(
+      injectable =>
+        it("should push a dependency to the target with the given Injectable: " + injectable, () => {
+          const target: ITarget = {} as ITarget;
 
-			subject(target, "anything", 0);
+          const subject: ParameterDecorator = get_subject_with(injectable);
 
-			assert.equal(target.dependencies.length, 1);
-		});
+          subject(target, "anything", 0);
 
-		[
-			Injectable.DialogService,
-			Injectable.FileService,
-			Injectable.Logger,
-			Injectable.ToasterService,
-		].forEach(injectable => it("should push a dependency to the target with the given Injectable: " + injectable, () => {
-			const target: ITarget = {} as ITarget;
+          assert.equal(target.dependencies.length, 1);
+          assert.equal(target.dependencies[0].dependencyType, injectable);
+        })
+    );
 
-			const subject: ParameterDecorator = get_subject_with(injectable);
+    [-1, 0, 1, 5].forEach(index =>
+      it("should push a dependency to the target with the given index: " + index, () => {
+        const target: ITarget = {} as ITarget;
 
-			subject(target, "anything", 0);
+        const subject: ParameterDecorator = get_subject_with({} as Injectable);
 
-			assert.equal(target.dependencies.length, 1);
-			assert.equal(target.dependencies[0].dependencyType, injectable);
-		}));
+        subject(target, "anything", index);
 
-		[
-			-1,
-			0,
-			1,
-			5
-		].forEach(index => it("should push a dependency to the target with the given index: " + index, () => {
-			const target: ITarget = {} as ITarget;
+        assert.equal(target.dependencies.length, 1);
+        assert.equal(target.dependencies[0].propertyIndex, index);
+      })
+    );
 
-			const subject: ParameterDecorator = get_subject_with({} as Injectable);
-
-			subject(target, "anything", index);
-
-			assert.equal(target.dependencies.length, 1);
-			assert.equal(target.dependencies[0].propertyIndex, index);
-		}));
-
-		function get_subject_with(dependencyType: Injectable): ParameterDecorator {
-			return Inject(dependencyType);
-		}
-	});
+    function get_subject_with(dependencyType: Injectable): ParameterDecorator {
+      return Inject(dependencyType);
+    }
+  });
 });

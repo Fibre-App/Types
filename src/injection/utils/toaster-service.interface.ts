@@ -2,7 +2,6 @@
  * A service for displaying toasts within the Fibre user-interface.
  */
 export interface IToasterService {
-
   /**
    * Displays a green success toast to the user.
    *

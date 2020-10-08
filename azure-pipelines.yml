@@ -4,47 +4,47 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
-- develop
+  - master
+  - develop
 
 pool:
   vmImage: "$(vmImage)"
 
 steps:
-- task: UseNode@1
-  inputs:
-    version: "13.2.0"
-  displayName: 'Install Node.js'
+  - task: UseNode@1
+    inputs:
+      version: "13.2.0"
+    displayName: "Install Node.js"
 
-- task: CmdLine@2
-  inputs:
-    script: |
-      npm install
-      npm run build
-  displayName: 'npm install and build'
+  - task: CmdLine@2
+    inputs:
+      script: |
+        npm install
+        npm run build
+    displayName: "npm install and build"
 
-- task: CmdLine@2
-  inputs:
-    script: |
-      npm run coverage
-  displayName: 'npm coverage'
+  - task: CmdLine@2
+    inputs:
+      script: |
+        npm run coverage
+    displayName: "npm coverage"
 
-- task: CmdLine@2
-  inputs:
-    script: |
-      npm run docs
-  displayName: 'npm generate docs'
-  
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
-  displayName: 'publish code coverage artifact'
+  - task: CmdLine@2
+    inputs:
+      script: |
+        npm run docs
+    displayName: "npm generate docs"
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/docs'
-    artifact: 'docs'
-    publishLocation: 'pipeline'
-  displayName: 'publish docs artifact'
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: "Cobertura"
+      summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml"
+      reportDirectory: "$(System.DefaultWorkingDirectory)/**/coverage"
+    displayName: "publish code coverage artifact"
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: "$(System.DefaultWorkingDirectory)/docs"
+      artifact: "docs"
+      publishLocation: "pipeline"
+    displayName: "publish docs artifact"
