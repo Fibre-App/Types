@@ -1,50 +1,89 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
   - master
   - develop
 
-pool:
-  vmImage: "$(vmImage)"
+jobs:
+  - job: BuildAndUnitTests
+    displayName: Build and run unit tests on
 
-steps:
-  - task: UseNode@1
-    inputs:
-      version: "13.2.0"
-    displayName: "Install Node.js"
+    strategy:
+      matrix:
+        Linux:
+          imageName: "ubuntu-latest"
+        MacOs:
+          imageName: "macOs-latest"
+        Windows:
+          imageName: "windows-latest"
 
-  - task: CmdLine@2
-    inputs:
-      script: |
-        npm install
-        npm run build
-    displayName: "npm install and build"
+    pool:
+      vmImage: "$(imageName)"
 
-  - task: CmdLine@2
-    inputs:
-      script: |
-        npm run coverage
-    displayName: "npm coverage"
+    steps:
+      - task: UseNode@1
+        displayName: "Install Node.js"
+        inputs:
+          version: "14.3.0"
+        continueOnError: false
 
-  - task: CmdLine@2
-    inputs:
-      script: |
-        npm run docs
-    displayName: "npm generate docs"
+      - task: Npm@1
+        displayName: "NPM Install Project"
+        inputs:
+          command: "ci"
+        continueOnError: false
 
-  - task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: "Cobertura"
-      summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml"
-      reportDirectory: "$(System.DefaultWorkingDirectory)/**/coverage"
-    displayName: "publish code coverage artifact"
+      - task: CmdLine@2
+        displayName: "Build Project"
+        inputs:
+          script: |
+            npm run build
+        continueOnError: false
 
-  - task: PublishPipelineArtifact@1
-    inputs:
-      targetPath: "$(System.DefaultWorkingDirectory)/docs"
-      artifact: "docs"
-      publishLocation: "pipeline"
-    displayName: "publish docs artifact"
+      - task: CmdLine@2
+        displayName: "Test Project"
+        inputs:
+          script: |
+            npm run coverage
+        continueOnError: false
+
+      - task: PublishCodeCoverageResults@1
+        displayName: "Publish Coverage Results"
+        inputs:
+          codeCoverageTool: "Cobertura"
+          summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml"
+          reportDirectory: "$(System.DefaultWorkingDirectory)/**/coverage"
+        continueOnError: false
+
+  - job: GenerateDocumentation
+    displayName: Generate Documentation
+    dependsOn: BuildAndUnitTests
+
+    pool:
+      vmImage: "ubuntu-latest"
+
+    steps:
+      - task: UseNode@1
+        displayName: "Install Node.js"
+        inputs:
+          version: "14.3.0"
+        continueOnError: false
+
+      - task: Npm@1
+        displayName: "NPM Install Project"
+        inputs:
+          command: "ci"
+        continueOnError: false
+
+      - task: CmdLine@2
+        displayName: "Generate Docs"
+        inputs:
+          script: |
+            npm run docs
+        continueOnError: false
+
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish Docs"
+        inputs:
+          targetPath: "$(System.DefaultWorkingDirectory)/docs"
+          artifact: "Types Docs"
+          publishLocation: "pipeline"
+        continueOnError: false
