@@ -19,7 +19,7 @@ export interface IToasterService {
    * @param message The message of the toast, or the placeholder for the message of the toast
    * @param translationArgs The arguments which will be interpolated into the translations. This MUST be supplied if translations
    * are being used - even if you only given an empty object. You can also see them being used in the
-   * StandardScripts repository. {@link https://github.com/Fibre-SCM/StandardScripts/blob/master/src/commit.ts}
+   * StandardScripts repository. {@link https://github.com/Fibre-App/StandardScripts/blob/master/src/commit.ts}
    */
   success(title: string, message: string, translationArgs?: any): void;
 
@@ -40,7 +40,7 @@ export interface IToasterService {
    * @param message The message of the toast, or the placeholder for the message of the toast
    * @param translationArgs The arguments which will be interpolated into the translations. This MUST be supplied if translations
    * are being used - even if you only given an empty object. You can also see them being used in the
-   * StandardScripts repository. {@link https://github.com/Fibre-SCM/StandardScripts/blob/master/src/commit.ts}
+   * StandardScripts repository. {@link https://github.com/Fibre-App/StandardScripts/blob/master/src/commit.ts}
    */
   information(title: string, message: string, translationArgs?: any): void;
 
@@ -61,7 +61,7 @@ export interface IToasterService {
    * @param message The message of the toast, or the placeholder for the message of the toast
    * @param translationArgs The arguments which will be interpolated into the translations. This MUST be supplied if translations
    * are being used - even if you only given an empty object. You can also see them being used in the
-   * StandardScripts repository. {@link https://github.com/Fibre-SCM/StandardScripts/blob/master/src/commit.ts}
+   * StandardScripts repository. {@link https://github.com/Fibre-App/StandardScripts/blob/master/src/commit.ts}
    */
   warning(title: string, message: string, translationArgs?: any): void;
 
@@ -82,7 +82,7 @@ export interface IToasterService {
    * @param message The message of the toast, or the placeholder for the message of the toast
    * @param translationArgs The arguments which will be interpolated into the translations. This MUST be supplied if translations
    * are being used - even if you only given an empty object. You can also see them being used in the
-   * StandardScripts repository. {@link https://github.com/Fibre-SCM/StandardScripts/blob/master/src/commit.ts}
+   * StandardScripts repository. {@link https://github.com/Fibre-App/StandardScripts/blob/master/src/commit.ts}
    */
   error(title: string, message: string, translationArgs?: any): void;
 }

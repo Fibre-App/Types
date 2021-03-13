@@ -29,7 +29,7 @@ export interface IScriptData {
    * en-gb is the default so if you are using translation values, you should always include at least en-gb.
    *
    * The docs for the toasterService might make this examples clearer. You can also see them being used in the
-   * StandardScripts repository. {@link https://github.com/Fibre-SCM/StandardScripts/blob/master/src/commit.ts}
+   * StandardScripts repository. {@link https://github.com/Fibre-App/StandardScripts/blob/master/src/commit.ts}
    *
    * @example
    * Script({
