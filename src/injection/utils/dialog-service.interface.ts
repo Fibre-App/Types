@@ -24,7 +24,7 @@ export interface IDialogService {
    * @param message The message of the dialog.
    * @param defaultResult Not implemented for this dialog type.
    */
-  openOKDialog(title: string, message: string, defaultResult: boolean): Promise<boolean>;
+  openOKDialog(title: string, message: string, defaultResult: void): Promise<void>;
 
   /**
    * Shows a dialog to the user which promps them with yes and no buttons.
