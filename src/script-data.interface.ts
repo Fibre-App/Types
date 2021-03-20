@@ -22,31 +22,4 @@ export interface IScriptData {
    * {@link https://ionicons.com}
    */
   ionIcon: string;
-
-  /**
-   * Translation values for placeholders thoughout the script.
-   *
-   * en-gb is the default so if you are using translation values, you should always include at least en-gb.
-   *
-   * The docs for the toasterService might make this examples clearer. You can also see them being used in the
-   * StandardScripts repository. {@link https://github.com/Fibre-App/StandardScripts/blob/master/src/commit.ts}
-   *
-   * @example
-   * Script({
-   *  ...
-   *  translations: {
-   *   "en-gb": {
-   *     "customPlaceholder": "This is the value in English",
-   *     "giveTheseMeaningfulNames": "This one uses an argument: ${repoName}"
-   *   },
-   *   "de-de": {
-   *     "customPlaceholder": "This is the value in German"
-   *   }
-   *  }
-   * })
-   * ...
-   * this.toasterService.success("customPlaceholder", "", {});
-   * this.toasterService.success("giveTheseMeaningfulNames", "", { repoName: "My Repo" });
-   */
-  translations?: any;
 }

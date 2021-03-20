@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/fibre/Types.git"
   },
-  "prettier": "@tobysmith568/prettier-config",
+  "prettier": "@fibre/prettier-config",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/fibre/Types/issues"
@@ -27,7 +27,7 @@
   ],
   "devDependencies": {
     "@fibre/typedoc-themes": "^0.10.1",
-    "@tobysmith568/prettier-config": "^1.0.0",
+    "@fibre/prettier-config": "^1.0.0",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "chai": "^4.2.0",
@@ -42,5 +42,7 @@
     "typemoq-continued": "^2.1.3",
     "typescript": "^4.0.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "diff2html": "^3.4.0"
+  }
 }

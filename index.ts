@@ -1,14 +1,12 @@
-export { IAuthor } from "./src/repositories/author.interface";
 export { IBranch } from "./src/repositories/branch.interface";
-export { IChangeSet } from "./src/repositories/changeset.interface";
-export { IDiff } from "./src/repositories/diff.interface";
+export { IChangeset } from "./src/repositories/changeset.interface";
+export { ICredential } from "./src/repositories/credential.interface";
 export { IFile } from "./src/repositories/file.interface";
-export { IRemote } from "./src/repositories/remote.interface";
-export { IRepository } from "./src/repositories/repository.interface";
-export { IStash } from "./src/repositories/stash.interface";
+export { IRemoteBranch } from "./src/repositories/remote-branch.interface";
+export { IRepository, IChangesetFilter } from "./src/repositories/repository.interface";
 export { ITag } from "./src/repositories/tag.interface";
-
 export { RepositoryType } from "./src/repositories/type.enum";
+export { IFileDiffData } from "./src/repositories/file-diff-data.interface";
 
 export { IResult } from "./src/result.interface";
 export { Script } from "./src/script.decorator";
