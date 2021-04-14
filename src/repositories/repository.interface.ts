@@ -11,7 +11,7 @@ export interface IRepository {
   localLocation: string;
   name: string;
 
-  fetch(): Promise<boolean>;
+  fetchAll(): Promise<boolean>;
 
   getChangeSets(filter: IChangesetFilter): Promise<IChangeset[]>;
   getLocalBranches(): Promise<IBranch[]>;
