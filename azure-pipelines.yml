@@ -62,6 +62,15 @@ jobs:
           reportDirectory: "$(System.DefaultWorkingDirectory)/**/coverage"
         continueOnError: false
 
+      - task: Bash@3
+        displayName: "Upload to CodeCov"
+        condition: and(succeeded(), variables.isPrimaryStrategy, variables.isMaster)
+        inputs:
+          targetType: "inline"
+          script: "bash <(curl -s https://codecov.io/bash)"
+        env:
+          CODECOV_TOKEN: $(CODECOV_TOKEN)
+
       - task: CmdLine@2
         displayName: "Generate Docs"
         condition: and(succeeded(), variables.isPrimaryStrategy, variables.isMaster)
