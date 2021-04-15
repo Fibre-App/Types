@@ -28,3 +28,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run coverage --ci
+
+      - name: Codecov
+        uses: codecov/codecov-action@v1.3.2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
