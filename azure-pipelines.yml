@@ -1,15 +1,18 @@
 trigger:
-  - master
-  - develop
+  branches:
+    include:
+      - master
+      - develop
 
 jobs:
-  - job: BuildAndUnitTests
+  - job: buildAndUnitTest
     displayName: Build and run unit tests on
 
     strategy:
       matrix:
         Linux:
           imageName: "ubuntu-latest"
+          isPrimaryStrategy: true
         MacOs:
           imageName: "macOs-latest"
         Windows:
@@ -18,6 +21,9 @@ jobs:
     pool:
       vmImage: "$(imageName)"
 
+    variables:
+      isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+
     steps:
       - task: UseNode@1
         displayName: "Install Node.js"
@@ -25,10 +31,11 @@ jobs:
           version: "14.3.0"
         continueOnError: false
 
-      - task: Npm@1
-        displayName: "NPM Install Project"
+      - task: CmdLine@2
+        displayName: "Install Dependencies"
         inputs:
-          command: "ci"
+          script: |
+            npm ci
         continueOnError: false
 
       - task: CmdLine@2
@@ -47,34 +54,16 @@ jobs:
 
       - task: PublishCodeCoverageResults@1
         displayName: "Publish Coverage Results"
+        condition: and(succeeded(), variables.isPrimaryStrategy, variables.isMaster)
         inputs:
           codeCoverageTool: "Cobertura"
           summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage/cobertura-coverage.xml"
           reportDirectory: "$(System.DefaultWorkingDirectory)/**/coverage"
         continueOnError: false
 
-  - job: GenerateDocumentation
-    displayName: Generate Documentation
-    dependsOn: BuildAndUnitTests
-
-    pool:
-      vmImage: "ubuntu-latest"
-
-    steps:
-      - task: UseNode@1
-        displayName: "Install Node.js"
-        inputs:
-          version: "14.3.0"
-        continueOnError: false
-
-      - task: Npm@1
-        displayName: "NPM Install Project"
-        inputs:
-          command: "ci"
-        continueOnError: false
-
       - task: CmdLine@2
         displayName: "Generate Docs"
+        condition: and(succeeded(), variables.isPrimaryStrategy, variables.isMaster)
         inputs:
           script: |
             npm run docs
@@ -82,6 +71,7 @@ jobs:
 
       - task: PublishPipelineArtifact@1
         displayName: "Publish Docs"
+        condition: and(succeeded(), variables.isPrimaryStrategy, variables.isMaster)
         inputs:
           targetPath: "$(System.DefaultWorkingDirectory)/docs"
           artifact: "Types Docs"
