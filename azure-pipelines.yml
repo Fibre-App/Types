@@ -50,7 +50,7 @@ jobs:
         displayName: "Test Project"
         inputs:
           script: |
-            npm run coverage
+            npm run coverage --ci
         continueOnError: false
 
       - task: PublishCodeCoverageResults@1
